@@ -15,7 +15,7 @@
     :license: MIT License
 """
 
-from eth_account.datastructures import AttributeDict
+from eth_account.datastructures import NamedTuple
 from urllib.parse import urlencode
 from eth_utils import (
     apply_to_return_value,
@@ -66,7 +66,7 @@ class Tron:
 
     _default_block = None
     _private_key = None
-    _default_address = AttributeDict({})
+    _default_address = NamedTuple({})
 
     # Encoding and Decoding
     toBytes = staticmethod(to_bytes)
@@ -166,7 +166,7 @@ class Tron:
         self._private_key = str(private_key).lower()
 
     @property
-    def default_address(self) -> AttributeDict:
+    def default_address(self) -> NamedTuple:
         """Get a TRON Address"""
         return self._default_address
 
@@ -191,7 +191,7 @@ class Tron:
         if self._private_key and _private_base58 != _base58:
             self._private_key = None
 
-        self._default_address = AttributeDict({
+        self._default_address = NamedTuple({
             'hex': _hex,
             'base58': _base58
         })
