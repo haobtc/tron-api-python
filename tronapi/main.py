@@ -15,7 +15,8 @@
     :license: MIT License
 """
 
-from eth_account.datastructures import NamedTuple
+#from eth_account.datastructures import NamedTuple
+from collections import namedtuple
 from urllib.parse import urlencode
 from eth_utils import (
     apply_to_return_value,
@@ -59,6 +60,8 @@ DEFAULT_MODULES = {
     'trx': Trx
 }
 
+Address = namedtuple('Address', ['hex', 'base58'], defaults=['', ''])
+
 
 class Tron:
     # Providers
@@ -66,7 +69,7 @@ class Tron:
 
     _default_block = None
     _private_key = None
-    _default_address = NamedTuple({})
+    _default_address = Address() #NamedTuple({})
 
     # Encoding and Decoding
     toBytes = staticmethod(to_bytes)
@@ -166,7 +169,7 @@ class Tron:
         self._private_key = str(private_key).lower()
 
     @property
-    def default_address(self) -> NamedTuple:
+    def default_address(self) -> Address:
         """Get a TRON Address"""
         return self._default_address
 
@@ -191,10 +194,11 @@ class Tron:
         if self._private_key and _private_base58 != _base58:
             self._private_key = None
 
-        self._default_address = NamedTuple({
-            'hex': _hex,
-            'base58': _base58
-        })
+        self._default_address = Address(hex=_hex, base58=_base58)
+        # self._default_address = NamedTuple({
+        #     'hex': _hex,
+        #     'base58': _base58
+        # })
 
     def get_event_result(self, **kwargs):
         """Will return all events matching the filters.

@@ -24,7 +24,7 @@ from setuptools import (
 
 py_version = platform.python_version()
 
-PACKAGE_VERSION = '4.0.0'
+PACKAGE_VERSION = '4.0.1'
 
 EXTRAS_REQUIRE = {
     'tester': [
