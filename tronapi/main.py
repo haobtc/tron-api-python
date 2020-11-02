@@ -60,7 +60,7 @@ DEFAULT_MODULES = {
     'trx': Trx
 }
 
-Address = namedtuple('Address', ['hex', 'base58'], defaults=['', ''])
+AddrSt = namedtuple('AddrSt', ['hex', 'base58'], defaults=['', ''])
 
 
 class Tron:
@@ -69,7 +69,7 @@ class Tron:
 
     _default_block = None
     _private_key = None
-    _default_address = Address() #NamedTuple({})
+    _default_address = AddrSt() #NamedTuple({})
 
     # Encoding and Decoding
     toBytes = staticmethod(to_bytes)
@@ -169,7 +169,7 @@ class Tron:
         self._private_key = str(private_key).lower()
 
     @property
-    def default_address(self) -> Address:
+    def default_address(self) -> AddrSt:
         """Get a TRON Address"""
         return self._default_address
 
@@ -194,7 +194,7 @@ class Tron:
         if self._private_key and _private_base58 != _base58:
             self._private_key = None
 
-        self._default_address = Address(hex=_hex, base58=_base58)
+        self._default_address = AddrSt(hex=_hex, base58=_base58)
         # self._default_address = NamedTuple({
         #     'hex': _hex,
         #     'base58': _base58
